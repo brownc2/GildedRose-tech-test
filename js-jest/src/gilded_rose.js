@@ -9,103 +9,98 @@ class Item {
 class Shop {
   constructor(items = []) {
     this.items = items;
+    this.outcome = [];
   }
   updateQuality() {
-    if (this.standardItem(this.items))
-      if (this.specialItemBrie(this.items)) {
-        return this.items;
-      }
+    for (let i = 0; i < this.items.length; i++) {
+      if (this.standardItem(this.items))
+        if (this.specialBrie(this.items))
+          if (this.specialSulfuras(this.items))
+            if (this.specialConcert(this.items))
+              if (this.conjured(this.items)) {
+                return this.outcome;
+              }
+    }
+    return this.outcome;
   }
 
   standardItem(items) {
-    this.items = items;
+    let standard = items;
     for (let i = 0; i < this.items.length; i++) {
-      if (this.items[i].name != "Aged Brie") {
-        this.items[i].quality = this.items[i].quality - 1;
-        this.items[i].sellIn = this.items[i].sellIn - 1;
-      }
-      return this.items;
+      if (standard[i].name != "Aged Brie")
+        if (standard[i].name != "Sulfuras, Hand of Ragnaros")
+          if (standard[i].name != "Backstage passes to a TAFKAL80ETC concert")
+            if (standard[i].name != "Conjured Mana Cake") {
+              standard[i].quality = standard[i].quality - 1;
+              standard[i].sellIn = standard[i].sellIn - 1;
+              this.outcome.push(standard[i]);
+            }
+      return this.outcome;
     }
   }
 
   specialBrie(items) {
-    this.items = items;
+    let brie = items;
     for (let i = 0; i < this.items.length; i++) {
-      if (this.items[i].name == "Aged Brie") {
-        this.items[i].quality = this.items[i].quality + 1;
-        this.items[i].sellIn = this.items[i].sellIn - 1;
+      if (brie[i].name == "Aged Brie") {
+        brie[i].quality = brie[i].quality + 1;
+        brie[i].sellIn = brie[i].sellIn - 1;
+        this.outcome.push(brie[i]);
       }
-      return this.items;
     }
+    return this.outcome;
+  }
+  specialSulfuras(items) {
+    let sulfuras = items;
+    for (let i = 0; i < this.items.length; i++) {
+      if (sulfuras[i].name == "Sulfuras, Hand of Ragnaros") {
+        this.outcome.push(sulfuras[i]);
+      }
+    }
+    return this.outcome;
+  }
+  specialConcert(items) {
+    let concert = items;
+    for (let i = 0; i < this.items.length; i++) {
+      if (concert[i].name == "Backstage passes to a TAFKAL80ETC concert") {
+        concert[i].quality = concert[i].quality + 1;
+        concert[i].sellIn = concert[i].sellIn - 1;
+        this.outcome.push(concert[i]);
+      }
+    }
+    return this.outcome;
+  }
+  conjured(items) {
+    let concert = items;
+
+    for (let i = 0; i < this.items.length; i++) {
+      if (concert[i].name == "Conjured Mana Cake") {
+        concert[i].quality = concert[i].quality - 2;
+        concert[i].sellIn = concert[i].sellIn - 1;
+        this.outcome.push(concert[i]);
+      }
+    }
+
+    return this.outcome;
   }
 }
+
+// const gildedRose = new Shop([
+//   new Item("Conjured Mana Cake", 3, 6),
+//   new Item("Backstage passes to a TAFKAL80ETC concert", 5, 49),
+//   new Item("Backstage passes to a TAFKAL80ETC concert", 5, 49),
+//   new Item("Backstage passes to a TAFKAL80ETC concert", 5, 49),
+//   new Item("Backstage passes to a TAFKAL80ETC concert", 5, 49),
+//   new Item("Backstage passes to a TAFKAL80ETC concert", 5, 49),
+//   new Item("Backstage passes to a TAFKAL80ETC concert", 5, 49),
+//   new Item("Backstage passes to a TAFKAL80ETC concert", 5, 49),
+//   new Item("Backstage passes to a TAFKAL80ETC concert", 5, 49),
+//   new Item("Backstage passes to a TAFKAL80ETC concert", 5, 49),
+//   new Item("Backstage passes to a TAFKAL80ETC concert", 5, 49),
+// ]);
+// console.log(gildedRose.updateQuality());
 
 module.exports = {
   Item,
   Shop,
 };
-
-// class Shop {
-//   constructor(items = []) {
-//     this.items = items;
-//   }
-//   updateQuality() {
-//     for (let i = 0; i < this.items.length; i++) {
-//       if (this.items[i].name == "Conjured Mana Cake") {
-//         this.items[i].quality = this.items[i].quality - 3;
-//       }
-//       if (
-//         this.items[i].name != "Aged Brie" &&
-//         this.items[i].name != "Backstage passes to a TAFKAL80ETC concert" &&
-//         this.items[i].name != "Sulfuras, Hand of Ragnaros" &&
-//         this.items[i].name != "Conjured Mana Cake" &&
-//         this.items[i].quality > 0
-//       ) {
-//         this.items[i].quality = this.items[i].quality - 1;
-//       } else {
-//         if (this.items[i].quality < 50) {
-//           this.items[i].quality = this.items[i].quality + 1;
-//           if (
-//             this.items[i].name == "Backstage passes to a TAFKAL80ETC concert"
-//           ) {
-//             if (this.items[i].sellIn < 11) {
-//               if (this.items[i].quality < 50) {
-//                 this.items[i].quality = this.items[i].quality + 1;
-//               }
-//             }
-//             if (this.items[i].sellIn < 6) {
-//               if (this.items[i].quality < 50) {
-//                 this.items[i].quality = this.items[i].quality + 1;
-//               }
-//             }
-//           }
-//         }
-//       }
-//       if (this.items[i].name != "Sulfuras, Hand of Ragnaros") {
-//         this.items[i].sellIn = this.items[i].sellIn - 1;
-//       }
-//       if (this.items[i].sellIn < 0) {
-//         if (this.items[i].name != "Aged Brie") {
-//           if (
-//             this.items[i].name != "Backstage passes to a TAFKAL80ETC concert"
-//           ) {
-//             if (this.items[i].quality > 0) {
-//               if (this.items[i].name != "Sulfuras, Hand of Ragnaros") {
-//                 this.items[i].quality = this.items[i].quality - 1;
-//               }
-//             }
-//           } else {
-//             this.items[i].quality =
-//               this.items[i].quality - this.items[i].quality;
-//           }
-//         } else {
-//           if (this.items[i].quality < 50) {
-//             this.items[i].quality = this.items[i].quality - 1;
-//           }
-//         }
-//       }
-//     }
-
-//     return this.items;
-//   }
-// }
