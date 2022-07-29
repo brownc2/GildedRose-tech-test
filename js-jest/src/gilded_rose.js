@@ -19,6 +19,12 @@ class AgedBrie extends Item {
   }
 }
 
+class Backstage extends Item {
+  updateItem() {
+    (this.sellIn -= 1), (this.quality += 1);
+  }
+}
+
 class Shop {
   constructor(items = []) {
     this.items = items;
@@ -37,4 +43,5 @@ module.exports = {
   Shop,
   Standard,
   AgedBrie,
+  Backstage,
 };

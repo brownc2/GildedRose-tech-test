@@ -3,7 +3,7 @@ const {
   Item,
   Standard,
   AgedBrie,
-  
+  Backstage,
 } = require("../src/gilded_rose");
 
 describe("Gilded Rose", function () {
@@ -34,7 +34,7 @@ describe("Gilded Rose", function () {
       expect(items[0].sellIn).toBe(4);
       expect(items[0].quality).toBe(6);
     });
-    xit("Will correctly work out Sulfuras, Hand of Ragnaros (1st test) after one day", () => {
+    it("Will correctly work out Sulfuras, Hand of Ragnaros (1st test) after one day", () => {
       const gildedRose = new Shop([
         new Item("Sulfuras, Hand of Ragnaros", 0, 80),
         new Item("+5 Dexterity Vest", 10, 20),
@@ -43,7 +43,7 @@ describe("Gilded Rose", function () {
       expect(items[0].sellIn).toBe(0);
       expect(items[0].quality).toBe(80);
     });
-    xit("Will correctly work out Sulfuras, Hand of Ragnaros (2nd test) after one day", () => {
+    it("Will correctly work out Sulfuras, Hand of Ragnaros (2nd test) after one day", () => {
       const gildedRose = new Shop([
         new Item("Sulfuras, Hand of Ragnaros", -1, 80),
       ]);
@@ -51,9 +51,9 @@ describe("Gilded Rose", function () {
       expect(items[0].sellIn).toBe(-1);
       expect(items[0].quality).toBe(80);
     });
-    xit("Will correctly work out Backstage passes to a TAFKAL80ETC concert (1st test) after one day", () => {
+    it("Will correctly work out Backstage passes to a TAFKAL80ETC concert (1st test) after one day", () => {
       const gildedRose = new Shop([
-        new Item("Backstage passes to a TAFKAL80ETC concert", 15, 20),
+        new Backstage("Backstage passes to a TAFKAL80ETC concert", 15, 20),
       ]);
       const items = gildedRose.updateQuality();
       expect(items[0].sellIn).toBe(14);
