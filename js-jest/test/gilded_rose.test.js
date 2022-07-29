@@ -1,4 +1,4 @@
-const { Shop, Item } = require("../src/gilded_rose");
+const { Shop, Item, Standard, AgedBrie } = require("../src/gilded_rose");
 
 describe("Gilded Rose", function () {
   it("should foo", function () {
@@ -9,13 +9,13 @@ describe("Gilded Rose", function () {
 
   describe("Will work out the sellIn and quality of an item after one day", () => {
     it("Will correctly work out +5 Dexterity Vest after one day", () => {
-      const gildedRose = new Shop([new Item("+5 Dexterity Vest", 10, 20)]);
+      const gildedRose = new Shop([new Standard("+5 Dexterity Vest", 10, 20)]);
       const items = gildedRose.updateQuality();
       expect(items[0].sellIn).toBe(9);
       expect(items[0].quality).toBe(19);
     });
-    it("Will correctly work out Aged Brie after one day", () => {
-      const gildedRose = new Shop([new Item("Aged Brie", 2, 0)]);
+    xit("Will correctly work out Aged Brie after one day", () => {
+      const gildedRose = new Shop([new AgedBrie("Aged Brie", 2, 0)]);
       const items = gildedRose.updateQuality();
       expect(items[0].sellIn).toBe(1);
       expect(items[0].quality).toBe(1);
@@ -29,6 +29,7 @@ describe("Gilded Rose", function () {
     xit("Will correctly work out Sulfuras, Hand of Ragnaros (1st test) after one day", () => {
       const gildedRose = new Shop([
         new Item("Sulfuras, Hand of Ragnaros", 0, 80),
+        new Item("+5 Dexterity Vest", 10, 20),
       ]);
       const items = gildedRose.updateQuality();
       expect(items[0].sellIn).toBe(0);
