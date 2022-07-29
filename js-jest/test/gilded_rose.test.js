@@ -1,4 +1,10 @@
-const { Shop, Item, Standard, AgedBrie } = require("../src/gilded_rose");
+const {
+  Shop,
+  Item,
+  Standard,
+  AgedBrie,
+  
+} = require("../src/gilded_rose");
 
 describe("Gilded Rose", function () {
   it("should foo", function () {
@@ -14,14 +20,16 @@ describe("Gilded Rose", function () {
       expect(items[0].sellIn).toBe(9);
       expect(items[0].quality).toBe(19);
     });
-    xit("Will correctly work out Aged Brie after one day", () => {
+    it("Will correctly work out Aged Brie after one day", () => {
       const gildedRose = new Shop([new AgedBrie("Aged Brie", 2, 0)]);
       const items = gildedRose.updateQuality();
       expect(items[0].sellIn).toBe(1);
       expect(items[0].quality).toBe(1);
     });
-    xit("Will correctly work out Elixir of the Mongoose after one day", () => {
-      const gildedRose = new Shop([new Item("Elixir of the Mongoose", 5, 7)]);
+    it("Will correctly work out Elixir of the Mongoose after one day", () => {
+      const gildedRose = new Shop([
+        new Standard("Elixir of the Mongoose", 5, 7),
+      ]);
       const items = gildedRose.updateQuality();
       expect(items[0].sellIn).toBe(4);
       expect(items[0].quality).toBe(6);
