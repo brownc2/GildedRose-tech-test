@@ -9,7 +9,11 @@ class Item {
 
 class Standard extends Item {
   updateItem() {
-    (this.sellIn -= 1), (this.quality -= 1);
+    if (this.sellIn <= 0) {
+      this.quality -= 2;
+    } else {
+      (this.sellIn -= 1), (this.quality -= 1);
+    }
   }
 }
 
